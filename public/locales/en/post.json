@@ -1,0 +1,10 @@
+{
+  "publishedOn": "Published on",
+  "authors": "Authors",
+  "person": {
+    "name": "Name",
+    "email": "Email"
+  },
+  "tableOfContents": "Table of contents",
+  "editPage": "Edit this page"
+}

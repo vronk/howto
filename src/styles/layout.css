@@ -1,0 +1,41 @@
+/**
+ * @see https://www.smashingmagazine.com/2019/10/editorial-design-patterns-css-grid-subgrid-naming/
+ */
+.layout-grid {
+  --max-content-width: var(--screen-lg);
+  --column-width: minmax(0, calc(var(--max-content-width) / 12));
+  display: grid;
+  grid-template-columns:
+    [full-start]
+    1fr
+    [main-start]
+    repeat(1, var(--column-width))
+    [content-start]
+    repeat(10, var(--column-width))
+    [content-end]
+    repeat(1, var(--column-width))
+    [main-end]
+    1fr
+    [full-end];
+}
+
+.layout-grid > * {
+  grid-column: main;
+}
+
+.layout-full {
+  grid-column: full;
+}
+
+.layout-main {
+  grid-column: main;
+}
+
+.layout-content {
+  grid-column: content;
+}
+
+.page-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}

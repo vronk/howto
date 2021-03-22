@@ -1,0 +1,16 @@
+{
+  "loading": "Loading...",
+  "skipToMainContent": "Skip to main content",
+  "page": {
+    "index": "Home",
+    "posts": "Posts",
+    "about": "About",
+    "imprint": "Imprint"
+  },
+  "rssFeed": "RSS Feed",
+  "contact": {
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email"
+  }
+}

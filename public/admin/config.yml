@@ -1,0 +1,244 @@
+# site_url: https://howto.acdh.oeaw.ac.at/
+site_url: https://howto-ditah.vercel.app/
+logo_url: /assets/images/acdh-ch-logo-with-text.svg
+load_config_file: true
+local_backend: true
+publish_mode: editorial_workflow
+backend:
+  name: github
+  # repo: acdh-oeaw/howto
+  repo: stefanprobst/howto
+  branch: main
+  # base_url: https://api.netlify.com
+  base_url: https://howto-ditah.vercel.app/
+  # auth_endpoint: auth
+  auth_endpoint: api/auth/github
+  open_authoring: true
+  # cms_label_prefix: netlify-cms/
+  squash_merges: true
+  commit_messages:
+    create: "content(create): {{collection}} '{{slug}}'"
+    update: "content(update): {{collection}} '{{slug}}'"
+    delete: "content(delete): {{collection}} '{{slug}}'"
+    uploadMedia: "content(upload): '{{path}}'"
+    deleteMedia: "content(delete): '{{path}}'"
+# keep unicode characters - this avoids unclear rules for removing diacritics/umlauts,
+# which differ between languages. i.e. german should ü => ue, but french should ü => u.
+# slug:
+# encoding: ascii
+# clean_accents: true
+media_folder: /public/assets/images/cms
+public_folder: /assets/images/cms
+editor:
+  preview: false
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    # description:
+    # identifier_field: title
+    format: frontmatter
+    create: true
+    delete: false
+    folder: content/posts/en
+    # path: '{{year}}/{{slug}}/index'
+    media_folder: '{{media_folder}}/posts/{{slug}}'
+    public_folder: '{{public_folder}}/posts/{{slug}}'
+    slug: '{{slug}}'
+    preview_path: 'en/posts/{{slug}}'
+    # summary:
+    sortable_fields:
+      - commit_date
+      - date
+      - title
+      - commit_author
+    # view_filters:
+    view_groups:
+      - label: Year
+        field: date
+        pattern: \d{4}
+    fields:
+      - name: title
+        label: Title
+      - name: shortTitle
+        label: Short title
+        required: false
+      - name: date
+        label: Date
+        widget: datetime
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: true
+        # Avoid Date.now() default, which immediately marks the record as dirty.
+        default: ''
+      - name: authors
+        label: Authors
+        required: false
+        widget: relation
+        collection: persons
+        multiple: true
+        value_field: '{{slug}}'
+        search_fields:
+          - firstName
+          - lastName
+        display_fields:
+          - '{{firstName}} {{lastName}}'
+      - name: editors
+        label: Editors
+        required: false
+        widget: relation
+        collection: persons
+        multiple: true
+        value_field: '{{slug}}'
+        search_fields:
+          - firstName
+          - lastName
+        display_fields:
+          - '{{firstName}} {{lastName}}'
+      - name: tags
+        label: Tags
+        required: false
+        widget: relation
+        collection: tags
+        multiple: true
+        value_field: '{{slug}}'
+        search_fields:
+          - title
+        display_fields:
+          - title
+      - name: abstract
+        label: Abstract
+        required: false
+        widget: text
+      - name: body
+        label: Content
+        widget: markdown
+        # modes: ['raw', 'rich_text']
+  - name: collections
+    label: Collections
+    label_singular: Collection
+    # description:
+    # identifier_field: title
+    format: frontmatter
+    create: true
+    delete: false
+    folder: content/collections/en
+    # path: '{{year}}/{{slug}}/index'
+    media_folder: '{{media_folder}}/collections/{{slug}}'
+    public_folder: '{{public_folder}}/collections/{{slug}}'
+    slug: '{{slug}}'
+    preview_path: 'en/collections/{{slug}}'
+    # summary:
+    sortable_fields:
+      - commit_date
+      - date
+      - title
+      - commit_author
+    # view_filters:
+    view_groups:
+      - label: Year
+        field: date
+        pattern: \d{4}
+    fields:
+      - name: title
+        label: Title
+      - name: shortTitle
+        label: Short title
+        required: false
+      - name: date
+        label: Date
+        widget: datetime
+        date_format: DD/MM/YYYY
+        time_format: false
+        picker_utc: true
+        # Avoid Date.now() default, which immediately marks the record as dirty.
+        default: ''
+      - name: posts
+        label: Posts
+        widget: relation
+        collection: posts
+        multiple: true
+        value_field: '{{slug}}'
+        search_fields:
+          - title
+        display_fields:
+          - title
+      - name: body
+        label: Content
+        widget: markdown
+        # modes: ['raw', 'rich_text']
+  - name: persons
+    label: Persons
+    label_singular: Person
+    # description:
+    identifier_field: lastName
+    format: yml
+    create: true
+    delete: false
+    folder: content/persons/en
+    # path: '{{slug}}/index'
+    media_folder: '{{media_folder}}/persons'
+    public_folder: '{{public_folder}}/persons'
+    slug: '{{lastName}}-{{firstName}}'
+    preview_path: 'en/persons/{{slug}}'
+    summary: '{{firstName}} {{lastName}}'
+    sortable_fields:
+      - commit_date
+      - lastName
+    # view_filters:
+    # view_groups:
+    fields:
+      - name: firstName
+        label: First name
+      - name: lastName
+        label: Last name
+      - name: description
+        label: Description
+        required: false
+        widget: text
+      - name: title
+        label: Title
+        required: false
+      - name: image
+        label: Image
+        required: false
+        widget: image
+      - name: email
+        label: Email
+        required: false
+      - name: twitter
+        label: Twitter
+        required: false
+      - name: website
+        label: Website
+        required: false
+      - name: orcid
+        label: ORCID
+        required: false
+  - name: tags
+    label: Tags
+    label_singular: Tag
+    # description:
+    # identifier_field: title
+    format: yml
+    create: true
+    delete: false
+    folder: content/tags/en
+    # path: '{{slug}}/index'
+    media_folder: '{{media_folder}}/tags'
+    public_folder: '{{public_folder}}/tags'
+    slug: '{{slug}}'
+    preview_path: 'en/tags/{{slug}}'
+    # summary:
+    sortable_fields:
+      - commit_date
+      - title
+    # view_filters:
+    # view_groups:
+    fields:
+      - name: title
+        label: Title
+      - name: description
+        label: Description
+        required: false
+        widget: text

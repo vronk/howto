@@ -1,0 +1,18 @@
+<!--
+  We cannot import global css in `stories/preview.tsx`, because
+  next.js does not allow that, so we use add the `-s src/styles` option
+  to the storybook scripts in `package.json` and import the stylesheets here.
+-->
+<link href="/fonts.css" rel="stylesheet" />
+<link href="/custom-properties.css" rel="stylesheet" />
+<link href="/globals.css" rel="stylesheet" />
+<link href="/layout.css" rel="stylesheet" />
+<link href="/nprogress.css" rel="stylesheet" />
+
+<link
+  rel="preload"
+  href="/assets/fonts/Inter-roman.var.woff2?v=3.15"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
